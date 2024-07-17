@@ -1,0 +1,91 @@
+.reservation-container {
+    background-image: url('../../assets/images/bg_3.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reservation-form {
+    background-color: white;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    height: 450px;
+}
+
+form {
+    position: relative;
+    right: 200px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.container-service {
+    position: relative;
+    bottom: 100px;
+}
+@media (max-width: 768px) {
+  .reservation-container {
+    background-image: url('../../assets/images/bg_3.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reservation-form {
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    height: 400px;
+}
+
+form {
+    position: relative;
+    right: 0px;
+}
+
+  
+}

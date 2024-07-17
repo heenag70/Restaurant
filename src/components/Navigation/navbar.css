@@ -3,45 +3,61 @@
     justify-content: space-between;
     align-items: center;
     color: white;
-    padding: 13px;
-    background-color:inherit;
+    padding: 16px;
+    background-color: inherit; 
     border-bottom: 1px solid gray;
+    font-size: 15px;
     font-weight: 500;
     z-index: 2;
-    position: relative;
-    top: 30px;
+    position: absolute;
+    width: 95%;
+    top: 20px;
+    transition: background-color 0.3s, color 0.3s;
 }
+
+.navbar.fixed {
+    position: fixed;
+    top: 0;
+    color: black;
+    background-color: white; 
+    width: 100%;
+}
+
 .navbar__left {
     text-align: left;
+    margin-left: 20px;
     position: relative;
-    left: 50px;
+    left: 40px;
+    top: 10px;
 }
+
 .navbar__brand {
     font-size: 18px;
+    font-weight: 900;
 }
 
 .navbar__brand strong {
     font-weight: bold;
-    font-weight: 1000;
     font-size: 20px;
 }
 
 .navbar__right {
-    position: relative;
     text-align: right;
+    margin-right: 20px;
     position: relative;
-    right: 70px;
+    top: 10px;
 }
 
 .navbar__links {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .navbar__links li {
-    display: inline-block;
-    margin-left: 30px;
+    margin-left: 35px;
 }
 
 .navbar__links li:first-child {
@@ -54,15 +70,118 @@
     font-size: 16px;
 }
 
-.navbar__links li a:hover {
-    color: #c8a97e;
-}
-
 .navbar__links li.active a {
     color: #c8a97e;
 }
-.bookTable{
-    background-color: #e8caa0;
-    padding: 18px 20px;
+
+.navbar__links li.active a:hover {
+    color: black; 
+}
+
+.bookTable a {
+    background-color: #c8a97e;
+    padding: 15px 20px;
     border-radius: 5px;
+}
+
+.bookTable a:hover {
+    color: white;
+}
+
+.navbar__hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1500;
+}
+
+.navbar__hamburger .line {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.navbar__hamburger.open .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.navbar__hamburger.open .line:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar__hamburger.open .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        font-size: 10px;
+        top: 0px;
+        position: relative;
+        background-color: #333;
+        width: 100%;
+        padding: 0;
+        border-bottom: none;
+    }
+
+    .navbar__left {
+        margin: 10px 0;
+    }
+
+    .navbar__right {
+        margin: 10px 0;
+        position: relative;
+        top: 50;
+    }
+
+    .navbar__links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 0px;
+        right: 70px;
+        z-index: 1000;
+    }
+
+    .navbar__links.open {
+        display: flex;
+    }
+
+    .navbar__links li {
+        text-align: center;
+        margin: 10px 0;
+        padding: 5px;
+    }
+
+    .navbar__hamburger {
+        display: block;
+        position: absolute;
+        bottom: 25px;
+        right: 100px;
+        z-index: 2000;
+    }
+
+    .bookTable a {
+        padding: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .navbar {
+        position: fixed; 
+        width: 100%;
+        left: 0;
+    }
+
+    .navbar.fixed {
+        color: black;
+        background-color: white; 
+    }
+
+    .navbar.fixed .navbar__links li a {
+        color: black; 
+    }
 }

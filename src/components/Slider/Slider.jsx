@@ -1,83 +1,94 @@
-import React, { useState, useRef } from "react";
-import Slider from "react-slick";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ImageGrid from "../ImageGrid/ImageGrid"; 
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect, useRef } from "react";
 import "./slider.css";
+import Img1 from "../../assets/images/bg_1.jpg";
+import Img2 from "../../assets/images/bg_2.jpg";
+import Img3 from "../../assets/images/bg_3.jpg";
+import ImageGrid from "../ImageGrid/ImageGrid";
 
-import bgImage1 from "../../assets/images/bg_1.jpg";
-import bgImage2 from "../../assets/images/bg_2.jpg";
-import bgImage3 from "../../assets/images/bg_3.jpg";
+const Carousel = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
+  const autoplayRef = useRef(autoplay);
 
-const Slide = ({ image, caption }) => {
-  const upperCaseCaption = caption.toUpperCase();
-
-  return (
-    <div className="slide">
-      <img src={image} alt={caption} />
-      <div className="caption">{upperCaseCaption}</div>
-    </div>
-  );
-};
-
-const SliderComponent = () => {
-  const sliderRef = useRef(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    beforeChange: (current, next) => setCurrentSlide(next),
-  };
-
-  const slides = [
+  const images = [
     {
-      image: bgImage1,
-      caption: " Best Restaurant",
+      src: Img1,
+      alt: "slide 1",
+      label: "Delicious Specialties",
     },
     {
-      image: bgImage2,
-      caption: "Nutritious and Tasty",
+      src: Img2,
+      alt: "slide 2",
+      label: "Delicious Specialties",
     },
     {
-      image: bgImage3,
-      caption: "Delicious Speciality",
+      src: Img3,
+      alt: "slide 3",
+      label: "Delicious Specialties",
     },
   ];
 
-  const goToPrevious = () => {
-    sliderRef.current.slickPrev();
+  const handlePrev = () => {
+    setActiveIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
   };
 
-  const goToNext = () => {
-    sliderRef.current.slickNext();
+  const handleNext = () => {
+    setActiveIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
-  return (
-    <div className="slider-wrapper">
-      <Slider ref={sliderRef} {...settings}>
-        {slides.map((slide, index) => (
-          <Slide key={index} image={slide.image} caption={slide.caption} />
-        ))}
-      </Slider>
-      <div className = "">
-        <ImageGrid/>
-      </div>
-      <div className="prev" onClick={goToPrevious}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </div>
-      <div className="next" onClick={goToNext}>
-        <FontAwesomeIcon icon={faArrowRight} />
-      </div>
+  useEffect(() => {
+    autoplayRef.current = autoplay;
+  }, [autoplay]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (autoplayRef.current) {
+        handleNext();
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleMouseEnter = () => {
+    setAutoplay(false);
+  };
+
+  const handleMouseLeave = () => {
+    setAutoplay(true);
+  };
+return (
+  <div
+    className="carousel"
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <div className="carousel-inner">
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className={`carousel-item ${index === activeIndex ? "active" : ""}`}
+        >
+          <img src={image.src} alt={image.alt} />
+          <div className="carousel-caption">
+            <span>{image.label.toUpperCase()}</span>
+          </div>
+        </div>
+      ))}
     </div>
-  );
-};
+    <ImageGrid />
+    <button className="carousel-control-prev" onClick={handlePrev}>
+      &lsaquo;
+    </button>
+    <button className="carousel-control-next" onClick={handleNext}>
+      &rsaquo;
+    </button>
+  </div>
+);
 
-export default SliderComponent;
+}
+export default Carousel;
